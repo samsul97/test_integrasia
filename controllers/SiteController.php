@@ -9,6 +9,7 @@ use yii\web\Response;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
+use app\models\User;
 
 class SiteController extends Controller
 {
@@ -61,7 +62,14 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index');
+        if (!Yii::$app->user->isGuest) {
+            return $this->redirect(['site/dashboard']);
+        }
+        else
+        {
+            return $this->redirect(['site/login']);
+        }
+        // return $this->render('index');
     }
 
     /**
@@ -124,5 +132,13 @@ class SiteController extends Controller
     public function actionAbout()
     {
         return $this->render('about');
+    }
+    public function actionDashboard()
+    {
+
+        if (User::isAdmin() || User::isPanel()) {
+            return $this->render('dashboard');
+        }
+        return $this->redirect('site/login');
     }
 }
