@@ -33,13 +33,12 @@ class Gps extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            // [['id'], 'required'],
-            [['id', 'dijual_ke'], 'default', 'value' => null],
-            [['id', 'dijual_ke'], 'integer'],
             [['tgl_beli', 'tgl_jual'], 'safe'],
             [['deskripsi'], 'string'],
             [['brand', 'model', 'nama', 'garansi'], 'string', 'max' => 100],
-            // [['id'], 'unique'],
+            [['sold'], 'string', 'max' => 100],
+            [['garansi'], 'number'],
+            [['nama'], 'unique'],
         ];
     }
 
@@ -56,7 +55,7 @@ class Gps extends \yii\db\ActiveRecord
             'garansi' => 'Garansi',
             'tgl_beli' => 'Tgl Beli',
             'tgl_jual' => 'Tgl Jual',
-            'dijual_ke' => 'Dijual Ke',
+            // 'dijual_ke' => 'Dijual Ke',
             'deskripsi' => 'Deskripsi',
         ];
     }

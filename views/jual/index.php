@@ -2,17 +2,17 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
-use app\models\Sold;
+
 /* @var $this yii\web\View */
-/* @var $searchModel app\models\GpsSearch */
+/* @var $searchModel app\models\JualSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Gps';
+$this->title = 'Juals';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="gps-index box box-primary">
+<div class="jual-index box box-primary">
     <div class="box-header with-border">
-        <?= Html::a('Create Gps', ['create'], ['class' => 'btn btn-success btn-flat']) ?>
+        <?= Html::a('Create Jual', ['create'], ['class' => 'btn btn-success btn-flat']) ?>
     </div>
     <div class="box-body table-responsive no-padding">
         <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
@@ -26,29 +26,10 @@ $this->params['breadcrumbs'][] = $this->title;
                     'header' => 'No',
                     'headerOptions' => ['style' => 'text-align:center'],
                     'contentOptions' => ['style' => 'text-align:center']
-
                 ],
 
                 // 'id',
-                'brand',
-                'model',
                 'nama',
-                'garansi',
-                'tgl_beli',
-                'tgl_jual',
-                // 'sold',
-                [
-                    'attribute' => 'sold',
-                    'format' => 'raw',
-                    'headerOptions' => ['style' => 'text-align:center'],
-                    'filter' => Sold::getList(),
-                    'contentOptions' => ['style' =>'text-align:center;'],
-                    'value' => function ($data) {
-                        $model = Sold::findOne(['id' => $data->sold]);
-                        return $model->name;
-                    }
-                ],
-                'deskripsi:ntext',
 
                 [
                     'class' => 'yii\grid\ActionColumn',

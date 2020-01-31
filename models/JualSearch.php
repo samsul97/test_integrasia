@@ -5,12 +5,12 @@ namespace app\models;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\Gps;
+use app\models\Jual;
 
 /**
- * GpsSearch represents the model behind the search form of `app\models\Gps`.
+ * JualSearch represents the model behind the search form of `app\models\Jual`.
  */
-class GpsSearch extends Gps
+class JualSearch extends Jual
 {
     /**
      * @inheritdoc
@@ -18,8 +18,8 @@ class GpsSearch extends Gps
     public function rules()
     {
         return [
-            [['id', 'sold'], 'integer'],
-            [['brand', 'model', 'nama', 'garansi', 'tgl_beli', 'tgl_jual', 'deskripsi'], 'safe'],
+            [['id'], 'integer'],
+            [['nama'], 'safe'],
         ];
     }
 
@@ -41,7 +41,7 @@ class GpsSearch extends Gps
      */
     public function search($params)
     {
-        $query = Gps::find();
+        $query = Jual::find();
 
         // add conditions that should always apply here
 
@@ -61,16 +61,9 @@ class GpsSearch extends Gps
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'tgl_beli' => $this->tgl_beli,
-            'tgl_jual' => $this->tgl_jual,
-            'sold' => $this->sold,
         ]);
 
-        $query->andFilterWhere(['ilike', 'brand', $this->brand])
-            ->andFilterWhere(['ilike', 'model', $this->model])
-            ->andFilterWhere(['ilike', 'nama', $this->nama])
-            ->andFilterWhere(['ilike', 'garansi', $this->garansi])
-            ->andFilterWhere(['ilike', 'deskripsi', $this->deskripsi]);
+        $query->andFilterWhere(['ilike', 'nama', $this->nama]);
 
         return $dataProvider;
     }

@@ -3,16 +3,16 @@
 namespace app\controllers;
 
 use Yii;
-use app\models\Gps;
-use app\models\GpsSearch;
+use app\models\Sold;
+use app\models\SoldSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * GpsController implements the CRUD actions for Gps model.
+ * SoldController implements the CRUD actions for Sold model.
  */
-class GpsController extends Controller
+class SoldController extends Controller
 {
     /**
      * @inheritdoc
@@ -30,12 +30,12 @@ class GpsController extends Controller
     }
 
     /**
-     * Lists all Gps models.
+     * Lists all Sold models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new GpsSearch();
+        $searchModel = new SoldSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -45,7 +45,7 @@ class GpsController extends Controller
     }
 
     /**
-     * Displays a single Gps model.
+     * Displays a single Sold model.
      * @param integer $id
      * @return mixed
      */
@@ -57,16 +57,16 @@ class GpsController extends Controller
     }
 
     /**
-     * Creates a new Gps model.
+     * Creates a new Sold model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new Gps();
+        $model = new Sold();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['index', 'id' => $model->id]);
+            return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('create', [
                 'model' => $model,
@@ -75,7 +75,7 @@ class GpsController extends Controller
     }
 
     /**
-     * Updates an existing Gps model.
+     * Updates an existing Sold model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -85,7 +85,7 @@ class GpsController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['index', 'id' => $model->id]);
+            return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('update', [
                 'model' => $model,
@@ -94,7 +94,7 @@ class GpsController extends Controller
     }
 
     /**
-     * Deletes an existing Gps model.
+     * Deletes an existing Sold model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -107,15 +107,15 @@ class GpsController extends Controller
     }
 
     /**
-     * Finds the Gps model based on its primary key value.
+     * Finds the Sold model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Gps the loaded model
+     * @return Sold the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Gps::findOne($id)) !== null) {
+        if (($model = Sold::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

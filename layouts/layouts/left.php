@@ -10,13 +10,13 @@ use app\models\User;
         <div class="user-panel">
             <div class="pull-left image">
                 <?php if (User::isAdmin()): ?>
-                 <?= User::getFotoAdmin(['class' => 'img-circle']); ?>
-             <?php endif ?>
-             <?php if (User::isPanel()): ?>
-                 <?= User::getFotoPanel(['class' => 'img-circle']); ?>
-             <?php endif ?>
-         </div>
-         <div class="pull-left info">
+                   <?= User::getFotoAdmin(['class' => 'img-circle']); ?>
+               <?php endif ?>
+               <?php if (User::isPanel()): ?>
+                   <?= User::getFotoPanel(['class' => 'img-circle']); ?>
+               <?php endif ?>
+           </div>
+           <div class="pull-left info">
             <p><?= Yii::$app->user->identity->username ?></p>
 
             <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
@@ -45,6 +45,14 @@ use app\models\User;
                     ['label' => 'Dashboard', 'icon' => 'dashboard', 'url' => ['site/dashboard']],
                     ['label' => 'Kelola GPS', 'icon' => 'fa fa-gps', 'url' => ['gps/index']],
                     ['label' => 'Kelola User', 'icon' => 'user', 'url' => ['user/index']],
+                    [
+                        'label' => 'Data Master',
+                        'icon' => 'tasks',
+                        'url' => '#',
+                        'items' => [
+                            ['label' => 'Sold', 'icon' => 'circle-o', 'url' => ['sold/index']],
+                        ],
+                    ],
                 ],
             ]
         ) ?>
@@ -59,6 +67,7 @@ use app\models\User;
                     ['label' => 'Dashboard', 'icon' => 'dashboard', 'url' => ['site/dashboard']],
                     ['label' => 'Kelola GPS', 'icon' => 'fa fa-gps', 'url' => ['gps/index']],
                     ['label' => 'Edit Profile', 'icon' => 'user', 'url' => ['user/view','id' => Yii::$app->user->identity->id]],
+                    
                 ],
             ]
         ) ?>
