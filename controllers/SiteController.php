@@ -10,6 +10,10 @@ use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
 use app\models\User;
+use app\models\CreateUser;
+use app\models\UserPanel;
+use app\models\UserRole;
+use yii\web\UploadedFile;
 
 class SiteController extends Controller
 {
@@ -140,5 +144,59 @@ class SiteController extends Controller
             return $this->render('dashboard');
         }
         return $this->redirect('site/login');
+    }
+    public function actionAkun()
+    {
+        $model = new CreateUser();
+        if ($model->load(Yii::$app->request->post()) && $model->validate())
+        {
+            if ($model->id_user_role == 2)
+            {
+                $panel = new UserPanel();
+                $panel->nama = $model->nama;
+                $panel->email = $model->email;
+                $panel->telp = $model->telp;
+
+                $foto = UploadedFile::getInstance($model, 'foto');
+                $model->foto = time(). '_' . $foto->name;
+                $foto->saveAs(Yii::$app->basePath. '/web/user/' . $model->foto);
+                $panel->foto = $model->foto;
+                if (!$panel->save())
+                {
+                    echo 'Error di panel<br>';
+                    var_dump($panel->errors);
+                    die;
+                }
+                
+
+                $userrole = new UserRole();
+                $userrole->nama = $model->nama;
+
+                $user = new User();
+                $user->id_user = $panel->id;
+                $user->id_user_role = $userrole->id;
+                $user->username = $model->username;
+                $user->password = Yii::$app->getSecurity()->generatePasswordHash($model->password);
+                $user->id_user_role = 2;
+                $user->status = 1;
+                $user->token = Yii::$app->getSecurity()->generateRandomString(100);
+                if (!$user->save())
+                {
+                    echo 'Error di User<br>';
+                    var_dump($user->errors);
+                    die;
+                }
+
+                Yii::$app->session->setFlash('success', 'Berhasil Tambah Akun User Panel.');
+
+                return $this->redirect(['user-panel/index']);
+            }
+            else {
+                return $this->redirect(['site/akun']);
+            }
+        }
+        return $this->render('akun', [
+            'model' => $model,
+        ]);
     }
 }

@@ -7,12 +7,12 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\UserPanelSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'User Panels';
+$this->title = 'PENGGUNA';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="user-panel-index box box-primary">
     <div class="box-header with-border">
-        <?= Html::a('Create User Panel', ['create'], ['class' => 'btn btn-success btn-flat']) ?>
+        <?= Html::a('TAMBAH USER', ['site/akun'], ['class' => 'btn btn-success btn-flat']) ?>
     </div>
     <div class="box-body table-responsive no-padding">
         <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
@@ -21,15 +21,34 @@ $this->params['breadcrumbs'][] = $this->title;
             'filterModel' => $searchModel,
             'layout' => "{items}\n{summary}\n{pager}",
             'columns' => [
-                ['class' => 'yii\grid\SerialColumn'],
+                [
+                    'class' => 'yii\grid\SerialColumn',
+                    'header' => 'No',
+                    'headerOptions' => ['style' => 'text-align:center'],
+                    'contentOptions' => ['style' => 'text-align:center']
+                ],
 
-                'id',
+                // 'id',
                 'nama',
                 'email:email',
                 'telp',
-                'foto',
+                // 'foto',
+                [
+                    'attribute' => 'foto',
+                    'format' => 'raw',
+                    'value' => function ($model) {
+                        if ($model->foto != '') {
+                            return Html::img('@web/user/' . $model->foto, ['class' => 'img-responsive', 'style' => 'height:80px']);
+                        } else { 
+                            return '<div align="center"><h1>No Image</h1></div>';
+                        }
+                    },
+                ],
 
-                ['class' => 'yii\grid\ActionColumn'],
+                [
+                    'class' => 'yii\grid\ActionColumn',
+                    'contentOptions' => ['style' => 'text-align:center;width:80px']
+                ],
             ],
         ]); ?>
     </div>

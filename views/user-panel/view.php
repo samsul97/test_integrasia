@@ -6,31 +6,32 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model app\models\UserPanel */
 
-$this->title = $model->id;
+$this->title = $model->nama;
 $this->params['breadcrumbs'][] = ['label' => 'User Panels', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="user-panel-view box box-primary">
-    <div class="box-header">
-        <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary btn-flat']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->id], [
-            'class' => 'btn btn-danger btn-flat',
-            'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
-                'method' => 'post',
-            ],
-        ]) ?>
-    </div>
     <div class="box-body table-responsive no-padding">
         <?= DetailView::widget([
             'model' => $model,
             'attributes' => [
-                'id',
+                // 'id',
                 'nama',
                 'email:email',
                 'telp',
-                'foto',
+                [
+                    'attribute' => 'foto',
+                    'format' => 'raw',
+                    'value' => function ($model) {
+                        if ($model->foto != '') {
+                            return Html::img('@web/user/' . $model->foto, ['class' => 'img-responsive', 'style' => 'height:200px']);
+                        } else { 
+                            return '<div align="center"><h1>No Image</h1></div>';
+                        }
+                    },
+                ],
             ],
         ]) ?>
     </div>
 </div>
+<button type="button" class="btn btn-default" onclick="history.back()"><i class="fa fa-arrow-left"></i> Kembali</button>

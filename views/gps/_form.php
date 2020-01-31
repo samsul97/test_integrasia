@@ -5,6 +5,7 @@ use yii\widgets\ActiveForm;
 use kartik\select2\Select2;
 use kartik\date\DatePicker;
 use app\models\Sold;
+use kartik\file\FileInput;
 /* @var $this yii\web\View */
 /* @var $model app\models\Gps */
 /* @var $form yii\widgets\ActiveForm */
@@ -13,6 +14,7 @@ use app\models\Sold;
 <div class="gps-form box box-primary">
     <?php $form = ActiveForm::begin(); ?>
     <div class="box-body table-responsive">
+        <?= $form->field($model, 'foto')->fileInput() ?>
         <?= $form->field($model, 'brand')->textInput(['maxlength' => true]) ?>
         <div class="row">
           <div class="col-lg-6">
@@ -44,29 +46,29 @@ use app\models\Sold;
     <div class="row">
       <div class="col-lg-6">
         <?= $form->field($model, 'tgl_beli')->widget(DatePicker::classname(), [
-           'removeButton' => false,
-           'value' => date('Y-m-d'),
-           'options' => ['placeholder' => 'Tanggal Beli'],
-           'pluginOptions' => [
-             'autoclose'=>true,
-             'format' => 'yyyy-mm-dd'
-         ]])
-         ?>
-     </div>
-     <div class="col-lg-6">
-         <?= $form->field($model, 'tgl_jual')->widget(DatePicker::classname(), [
-           'removeButton' => false,
-           'value' => date('Y-m-d'),
-           'options' => ['placeholder' => 'Tanggal Jual'],
-           'pluginOptions' => [
-             'autoclose'=>true,
-             'format' => 'yyyy-mm-dd'
-         ]])
-         ?>
-     </div>
- </div>
+         'removeButton' => false,
+         'value' => date('Y-m-d'),
+         'options' => ['placeholder' => 'Tanggal Beli'],
+         'pluginOptions' => [
+           'autoclose'=>true,
+           'format' => 'yyyy-mm-dd'
+       ]])
+       ?>
+   </div>
+   <div class="col-lg-6">
+       <?= $form->field($model, 'tgl_jual')->widget(DatePicker::classname(), [
+         'removeButton' => false,
+         'value' => date('Y-m-d'),
+         'options' => ['placeholder' => 'Tanggal Jual'],
+         'pluginOptions' => [
+           'autoclose'=>true,
+           'format' => 'yyyy-mm-dd'
+       ]])
+       ?>
+   </div>
+</div>
 
- <?= $form->field($model, 'sold')->widget(Select2::classname(),
+<?= $form->field($model, 'sold')->widget(Select2::classname(),
     [
         'data' => Sold::getList(),
         'options' => [

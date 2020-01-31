@@ -26,11 +26,9 @@ class UserRole extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id'], 'required'],
-            [['id'], 'default', 'value' => null],
-            [['id'], 'integer'],
+            // [['id'], 'required'],
+            // [['id'], 'unique'],
             [['nama'], 'string', 'max' => 50],
-            [['id'], 'unique'],
         ];
     }
 
@@ -46,6 +44,6 @@ class UserRole extends \yii\db\ActiveRecord
     }
     public static function getList()
     {
-        return \yii\helpers\ArrayHelper::map(self::find()->all(), 'id', 'nama');
+        return \yii\helpers\ArrayHelper::map(self::find()->andWhere(['not in', 'id',  [1]])->all(), 'id', 'nama');
     }
 }

@@ -12,7 +12,7 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="gps-index box box-primary">
     <div class="box-header with-border">
-        <?= Html::a('Create Gps', ['create'], ['class' => 'btn btn-success btn-flat']) ?>
+        <?= Html::a('TAMBAH GPS', ['create'], ['class' => 'btn btn-success btn-flat']) ?>
     </div>
     <div class="box-body table-responsive no-padding">
         <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
@@ -49,6 +49,18 @@ $this->params['breadcrumbs'][] = $this->title;
                     }
                 ],
                 'deskripsi:ntext',
+
+                [
+                    'attribute' => 'foto',
+                    'format' => 'raw',
+                    'value' => function ($model) {
+                        if ($model->foto != '') {
+                            return Html::img('@web/images/' . $model->foto, ['class' => 'img-responsive', 'style' => 'height:80px']);
+                        } else { 
+                            return '<div align="center"><h1>No Image</h1></div>';
+                        }
+                    },
+                ],
 
                 [
                     'class' => 'yii\grid\ActionColumn',

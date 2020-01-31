@@ -29,12 +29,9 @@ class UserPanel extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id'], 'required'],
-            [['id'], 'default', 'value' => null],
-            [['id'], 'integer'],
             [['nama', 'telp'], 'string', 'max' => 50],
             [['email', 'foto'], 'string', 'max' => 100],
-            [['id'], 'unique'],
+            [['foto'], 'required', 'message'=> 'Data tidak boleh kosong'],
         ];
     }
 

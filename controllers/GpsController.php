@@ -8,6 +8,7 @@ use app\models\GpsSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\UploadedFile;
 
 /**
  * GpsController implements the CRUD actions for Gps model.
@@ -65,7 +66,13 @@ class GpsController extends Controller
     {
         $model = new Gps();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+
+            $foto = UploadedFile::getInstance($model, 'foto');
+            $model->foto = time(). '_' . $foto->name;
+            $foto->saveAs(Yii::$app->basePath. '/web/images/' . $model->foto);
+            $model->save(false);
+
             return $this->redirect(['index', 'id' => $model->id]);
         } else {
             return $this->render('create', [

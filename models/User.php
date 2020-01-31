@@ -4,7 +4,7 @@ namespace app\models;
 
 use Yii;
 use yii\helpers\Html;
-
+use app\models\UserPanel;
 /**
  * This is the model class for table "user".
  *
@@ -21,7 +21,7 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
 
     public function getPanel()
     {
-        return $this->hasOne(Panel::className(), ['id' => 'id_user']);
+        return $this->hasOne(UserPanel::className(), ['id' => 'id_user']);
     }
     /**
      * {@inheritdoc}
@@ -37,9 +37,9 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
     public function rules()
     {
         return [
-            [['id', 'username', 'password'], 'required'],
-            [['id', 'id_user', 'id_user_role', 'status'], 'default', 'value' => null],
-            [['id', 'id_user', 'id_user_role', 'status'], 'integer'],
+            [['username', 'password'], 'required'],
+            [['id_user', 'id_user_role', 'status'], 'default', 'value' => null],
+            [['id_user', 'id_user_role', 'status'], 'integer'],
             [['username'], 'string', 'max' => 50],
             [['password', 'token'], 'string', 'max' => 100],
             // [['id'], 'unique'],
@@ -87,8 +87,8 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
   }
   public function validatePassword($password)
   {
-    return $this->password == $password;
-        // return Yii::$app->getSecurity()->validatePassword($password, $this->password);
+    // return $this->password == $password;
+        return Yii::$app->getSecurity()->validatePassword($password, $this->password);
 }
 public static function isAdmin()
 {

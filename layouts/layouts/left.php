@@ -44,7 +44,9 @@ use app\models\User;
                     ['label' => 'Menu Aplikasi', 'options' => ['class' => 'header']],
                     ['label' => 'Dashboard', 'icon' => 'dashboard', 'url' => ['site/dashboard']],
                     ['label' => 'Kelola GPS', 'icon' => 'fa fa-gps', 'url' => ['gps/index']],
-                    ['label' => 'Kelola User', 'icon' => 'user', 'url' => ['user/index']],
+                    // ['label' => 'Kelola User', 'icon' => 'user', 'url' => ['user/index']],
+                    // ['label' => 'Tambah User', 'icon' => 'user', 'url' => ['site/akun']],
+                    ['label' => 'DATA USER', 'icon' => 'user', 'url' => ['user-panel/index']],
                     [
                         'label' => 'Data Master',
                         'icon' => 'tasks',

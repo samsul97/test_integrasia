@@ -8,6 +8,7 @@ use app\models\UserSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use app\models\ChangePasswordForm;
 
 /**
  * UserController implements the CRUD actions for User model.
@@ -120,5 +121,37 @@ class UserController extends Controller
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
+    }
+    public function actionChangePassword($id)
+    {
+
+        $model = new ChangePasswordForm();
+
+        $user = User::findOne($id);
+
+        if ($model->load(Yii::$app->request->post())) {
+
+            $user->password = Yii::$app->getSecurity()->generatePasswordHash($model->password);
+            $user->save(false);
+
+            Yii::$app->session->setFlash('Berhasil', 'Password sudah berhasil di reset');
+            return $this->redirect(['site/dashboard']);
+        }
+
+        return $this->render('changePassword', [
+            'model' => $model,
+        ]);
+    }
+
+    // Resert password anggota yang bisa di pakai oleh admin dan petugas.
+    public function actionResetPassword($id)
+    {
+        $user = User::findOne($id);
+
+        $user->password = Yii::$app->getSecurity()->generatePasswordHash($user->username);
+        $user->save(false);
+
+        Yii::$app->session->setFlash('Berhasil', 'Password sudah berhasil di reset');
+        return $this->redirect(['user/view']);
     }
 }

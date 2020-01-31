@@ -34,8 +34,10 @@ if (Yii::$app->controller->action->id === 'login') {
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <?= Html::csrfMetaTags() ?>
         <title><?= Html::encode($this->title) ?></title>
+        <link rel="shortcut icon" href="<?= Yii::getAlias('@web').'/images/gps.png'; ?>">
         <?php $this->head() ?>
     </head>
+    <?php if (Yii::$app->user->identity->id_user_role == 1): ?>
     <body class="hold-transition skin-blue sidebar-mini">
     <?php $this->beginBody() ?>
     <div class="wrapper">
@@ -57,9 +59,35 @@ if (Yii::$app->controller->action->id === 'login') {
         ) ?>
 
     </div>
-
     <?php $this->endBody() ?>
     </body>
+    <?php endif ?>
+
+    <?php if (Yii::$app->user->identity->id_user_role == 2): ?>
+    <body class="hold-transition skin-red sidebar-mini">
+    <?php $this->beginBody() ?>
+    <div class="wrapper">
+
+        <?= $this->render(
+            'header.php',
+            ['directoryAsset' => $directoryAsset]
+        ) ?>
+
+        <?= $this->render(
+            'left.php',
+            ['directoryAsset' => $directoryAsset]
+        )
+        ?>
+
+        <?= $this->render(
+            'content.php',
+            ['content' => $content, 'directoryAsset' => $directoryAsset]
+        ) ?>
+
+    </div>
+    <?php $this->endBody() ?>
+    </body>
+    <?php endif ?>
     </html>
     <?php $this->endPage() ?>
 <?php } ?>
